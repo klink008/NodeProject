@@ -1,0 +1,6 @@
+/public/dependencies
+/node_modules
+.idea
+/build
+/node_modules/gulp-html2js/node_modules
+*.iml
