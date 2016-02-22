@@ -1,10 +1,12 @@
 (function() {
     'use strict';
 
-    angular.module('header',['ngRoute'])
+    angular.module('header',['ngRoute','restangular', 'ngCookies'])
         .config(function($routeProvider) {
             $routeProvider.when('/', {
-                templateUrl: 'templates/main.html'
+                controller: 'headerController',
+                controllerAs: 'headerCtrl',
+                templateUrl: 'templates/header.html'
             });
         });
 })();

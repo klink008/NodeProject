@@ -3,4 +3,8 @@
 .idea
 /build
 /node_modules/gulp-html2js/node_modules
+/.idea
+/spec/npm-debug.log
+/public/stylesheets/css/style.css
+/npm-debug.log
 *.iml

@@ -2,9 +2,10 @@
     'use strict';
 
     angular.module('sidePanel')
-        .controller('SidePanelController', SidePanelController);
+        .controller('sidePanelController', SidePanelController);
 
-    function SidePanelController($scope){
+    function SidePanelController(){
+        var _this = this;
 
     }
 })();

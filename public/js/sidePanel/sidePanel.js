@@ -1,6 +1,6 @@
 (function() {
     'use strict';
 
-    angular.module('sidePanel',[])
+    angular.module('sidePanel',['ngCookies'])
 
 })();

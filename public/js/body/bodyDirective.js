@@ -9,9 +9,12 @@
         return {
             restrict: 'E',
             replace: 'true',
-            templateUrl: "templates/body.html",
-            controller: "BodyController",
-            controllerAs: "bodyCtrl"
+            templateUrl: "templates/home/body.html",
+            controller: "bodyController",
+            controllerAs: "bodyCtrl",
+            link: function(scope,elem,attr){
+                scope.bodyCtrl.initializePosts();
+            }
         }
     }
 

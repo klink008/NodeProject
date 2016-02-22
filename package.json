@@ -3,7 +3,8 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "node ./bin/www"
+    "start": "node ./bin/www",
+    "test": "jasmine-node spec"
   },
   "dependencies": {
     "body-parser": "~1.13.2",
@@ -18,14 +19,28 @@
   },
   "devDependencies": {
     "angular": "^1.4.7",
+    "angular-cookies": "^1.4.8",
+    "angular-mocks": "^1.4.7",
     "angular-route": "^1.4.7",
+    "bootstrap": "^3.3.5",
     "gulp": "^3.9.0",
     "gulp-clean": "^0.3.1",
     "gulp-concat": "^2.6.0",
     "gulp-html2js": "^0.2.0",
     "gulp-jade": "^1.1.0",
+    "gulp-jasmine": "^2.2.1",
+    "gulp-karma": "0.0.5",
+    "gulp-less": "^3.0.5",
     "gulp-ng-annotate": "^1.1.0",
+    "jasmine-core": "^2.3.4",
+    "jquery": "^2.1.4",
     "karma": "^0.13.15",
+    "karma-chrome-launcher": "^0.2.1",
+    "karma-jasmine": "^0.3.6",
+    "karma-phantomjs-launcher": "^0.2.1",
+    "karma-spec-reporter": "0.0.22",
+    "less": "^2.5.3",
+    "phantomjs": "^1.9.18",
     "restangular": "^1.5.1",
     "run-sequence": "^1.1.4",
     "underscore": "^1.8.3"

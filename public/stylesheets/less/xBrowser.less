@@ -1,0 +1,51 @@
+.x-browser-flex {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: flex;
+}
+
+.x-browser-grow(@size) {
+  -webkit-flex-grow: @size;
+  flex-grow: @size;
+}
+
+.x-browser-flex-align-items(@type) {
+  -webkit-align-items: @type;
+  align-items: @type;
+}
+
+.x-browser-align-content(@type){
+  -webkit-align-content: @type;
+  align-content: @type;
+}
+
+.x-browser-flex-h-justify(@type) {
+  -webkit-justify-content: @type;
+  justify-content: @type;
+}
+
+.x-browser-direction-column {
+  .x-browser-flex();
+  -webkit-flex-direction: column;
+  -webkit-box-orient: vertical;
+  flex-direction: column;
+}
+.x-browser-direction-row {
+  -webkit-flex-direction: row;
+  flex-direction: row;
+}
+
+.x-browser-flex-wrap {
+  -webkit-box-wrap: wrap;
+  -webkit-flex-wrap: wrap;
+  flex-wrap: wrap;
+}
+
+.x-browser-flex-self-v-align(@type){
+  -webkit-align-self:@type;
+  align-self:@type;
+}
+.x-browser-flex-basis(@amount){
+  -webkit-flex-basis: @amount; /* Safari 6.1+ */
+  flex-basis: @amount;
+}

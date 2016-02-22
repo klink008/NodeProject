@@ -1,10 +1,14 @@
-/**
- * Created by robertlazarony on 11/13/15.
- */
 var mongoose = require('mongoose');
-
-module.exports = mongoose.model('User', {
-    username: 'string',
-    password: 'string',
-    email: 'string'
+var userSchema = mongoose.Schema({
+    firstName: String,
+    lastName: String,
+    username: String,
+    password: String,
+    email: String,
+    posts: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'post'
+    }]
 });
+
+module.exports = mongoose.model('User', userSchema);

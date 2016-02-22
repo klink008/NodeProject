@@ -9,8 +9,8 @@
         return {
             restrict: 'E',
             replace: 'true',
-            templateUrl: "templates/header.html",
-            controller: "HeaderController",
+            templateUrl: "templates/home/header.html",
+            controller: "headerController",
             controllerAs: "headerCtrl"
         }
     }

@@ -1,5 +1,5 @@
 (function() {
     'use strict';
 
-    angular.module('body',[])
+    angular.module('body',['restangular','ngCookies'])
 })();
