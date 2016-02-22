@@ -1,0 +1,16 @@
+<div class="body-container">
+    <div class="post-text-container">
+        <div class="post-title-container">
+            <label for="post-title">Title:</label>
+            <input id="post-title" placeholder="Title" type="text" ng-model="bodyCtrl.title" class="input-boxes">
+        </div>
+        <textarea rows="5" cols="10" class="post-textarea" ng-model="bodyCtrl.content"></textarea>
+        <div class="post-submit-container">
+            <button type="button" class='post-submit-button' ng-click="bodyCtrl.submitPost()">Submit Post</button>
+            <button type="button" class='post-submit-button' ng-click="bodyCtrl.retrievePostsForUser()">Retrieve</button>
+        </div>
+        <div ng-repeat="post in  bodyCtrl.posts">
+            <a href="/#/displayPosts/{{post._id}}">{{post.title}}
+        </div>
+    </div>
+</div>

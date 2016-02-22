@@ -1,0 +1,155 @@
+.x-browser-flex {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: flex;
+}
+.x-browser-direction-column {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-flex-direction: column;
+  -webkit-box-orient: vertical;
+  flex-direction: column;
+}
+.x-browser-direction-row {
+  -webkit-flex-direction: row;
+  flex-direction: row;
+}
+.x-browser-flex-wrap {
+  -webkit-box-wrap: wrap;
+  -webkit-flex-wrap: wrap;
+  flex-wrap: wrap;
+}
+body {
+  margin: 0;
+}
+.flex-container {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: flex;
+}
+.flex-container-column {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-flex-direction: column;
+  -webkit-box-orient: vertical;
+  flex-direction: column;
+}
+.page-contents-container {
+  -webkit-flex-grow: 1;
+  flex-grow: 1;
+}
+.create-account-container {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-flex-direction: column;
+  -webkit-box-orient: vertical;
+  flex-direction: column;
+}
+.create-account-container .input-boxes {
+  max-width: 160px;
+}
+.create-account-container .create-user-submit {
+  max-width: 107px;
+}
+.header-contents {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-flex-basis: 10%;
+  /* Safari 6.1+ */
+  flex-basis: 10%;
+  -webkit-flex-grow: 1;
+  flex-grow: 1;
+  padding-left: 150px;
+  max-height: 40px;
+}
+.header-contents .empty {
+  flex-basis: 20%;
+}
+.header-contents .content {
+  -webkit-flex-grow: 1;
+  flex-grow: 1;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: flex;
+  justify-content: space-between;
+}
+.header-contents .content .flex-nav {
+  -webkit-flex-grow: 1;
+  flex-grow: 1;
+}
+.header-contents .content h2 {
+  margin-top: 10px;
+  margin-left: 20px;
+  font-size: 25px;
+}
+.home-container {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-flex-direction: column;
+  -webkit-box-orient: vertical;
+  flex-direction: column;
+  height: 100%;
+  width: 100%;
+}
+.side-bar-container {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-flex-direction: column;
+  -webkit-box-orient: vertical;
+  flex-direction: column;
+  -webkit-flex-grow: 1;
+  flex-grow: 1;
+  background-color: lightblue;
+}
+.body-container {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-flex-direction: column;
+  -webkit-box-orient: vertical;
+  flex-direction: column;
+  -webkit-flex-grow: 10;
+  flex-grow: 10;
+  -webkit-align-content: center;
+  align-content: center;
+  -webkit-justify-content: center;
+  justify-content: center;
+  background-color: lightgoldenrodyellow;
+}
+.body-container .post-text-container {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-flex-direction: column;
+  -webkit-box-orient: vertical;
+  flex-direction: column;
+  -webkit-align-items: center;
+  align-items: center;
+  -webkit-flex-basis: 50%;
+  /* Safari 6.1+ */
+  flex-basis: 50%;
+}
+.body-container .post-text-container .post-title-container {
+  width: 500px;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: flex;
+}
+.body-container .post-textarea {
+  max-width: 500px;
+  min-width: 500px;
+}
+.body-container .post-submit-container {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: flex;
+}
+.body-container .post-submit-container .post-submit-button {
+  max-width: 88px;
+}

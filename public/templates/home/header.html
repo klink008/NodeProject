@@ -1,0 +1,13 @@
+<div class="flex-container header-contents">
+    <div class="emtpy"></div>
+    <div class="content">
+        <h2>Welcome {{headerCtrl.firstName}}</h2>
+        <ul class="nav nav-pills">
+            <li role="presentation" class="active"><a href="/#/home">Home</a></li>
+            <li role="presentation"><a data-toggle="modal" data-target="#myModal">My Account</a></li>
+            <li role="presentation"><a href="#">My Posts</a></li>
+            <li role="presentation"><a href="#">Search</a></li>
+        </ul>
+        <div><a href="javascript:void(0)" ng-click="headerCtrl.logout()">Sign Out</a></div>
+    </div>
+</div>
