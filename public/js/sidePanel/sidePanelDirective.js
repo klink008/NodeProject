@@ -3,13 +3,14 @@
 
     angular
         .module('sidePanel')
-        .directive('sidePanel', sidePanel);
+        .directive('sidePanel', SidePanel);
 
-    function sidePanel(){
+
+    function SidePanel(){
         return {
             restrict: 'E',
             replace: 'true',
-            templateUrl: "templates/home/sidePanel.html",
+            templateUrl: "templates/sidePanel.html",
             controller: "sidePanelController",
             controllerAs: "sidePanelCtrl"
         }

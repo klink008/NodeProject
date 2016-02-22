@@ -6,6 +6,5 @@
 
     function SidePanelController(){
         var _this = this;
-
     }
 })();
