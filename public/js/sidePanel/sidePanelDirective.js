@@ -5,7 +5,6 @@
         .module('sidePanel')
         .directive('sidePanel', SidePanel);
 
-
     function SidePanel(){
         return {
             restrict: 'E',
@@ -15,5 +14,4 @@
             controllerAs: "sidePanelCtrl"
         }
     }
-
 })();
