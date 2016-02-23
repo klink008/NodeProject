@@ -12,22 +12,31 @@ module.exports.create = function(req, res){
 
 module.exports.validate = function(req, res){
     User.findOne({'username': req.body.username},function(err, result){
-      if(result.password === req.body.password){
-          res.status(200).json({id: result._id});
-      } else {
-          console.log('========== password incorrect ============');
-          res.status(401).json();
-      }
+        if(err){
+            res.status(500).json('Incorrect Username')
+        }
+        if(result) {
+            if (result.password === req.body.password) {
+                res.status(200).json({id: result._id});
+            } else {
+                res.status(401).json();
+            }
+        } else {
+            res.status(500).json('Incorrect Username')
+        }
     });
 };
 
 module.exports.loadUserData = function(req, res){
     User.findOne({'_id': req.body.id}, function(err, result){
         if(err) {
-            console.log(err);
+            res.status(500).json('Incorrect User Id')
         }
-        console.log(result);
-        res.status(200).json(result);
+        if(result) {
+            res.status(200).json(result);
+        } else {
+            res.status(500).json('Couldnt find user');
+        }
     });
 };
 
@@ -35,26 +44,18 @@ module.exports.updateUser = function(req, res){
     console.log(req.body);
     User.findOne({'_id':req.body.id}, function(err, user){
         if(err){
-            console.log(err);
-            res.status(500);
+            res.status(500).json('Incorrect User Id');
         }
-        if(user) {
-            if(req.body.firstName) {
-                user.firstName = req.body.firstName;
-            } else {
-                res.status(500).json("Invalid: Must submit first name");
-            }
+        if(user && req.body) {
+            user.firstName = req.body.firstName;
             user.lastName = req.body.lastName;
             user.username = req.body.username;
             user.email = req.body.email;
             user.password = req.body.password;
             user.save();
-            console.log(user);
-            console.log('user updated succesfully');
             res.status(200).json(user);
         } else {
-            console.log('user update failed');
-            res.status(500).json('user update failed');
+            res.status(500).json('Couldnt find user');
         }
     });
 };
