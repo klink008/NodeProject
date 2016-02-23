@@ -3,34 +3,39 @@ var mongoose = require('mongoose');
 var User = require('../models/user');
 var Post = require('../models/post');
 
-module.exports.create = function(req, res){
+module.exports.submitPost = function(req, res){
     var post = new Post();
     post.title = req.body.title;
     post.content = req.body.content;
     post.created = req.body.created;
     //retrieve the user then save the post to the user object.
-    post.save(function(err, postResult){
-        User.findOne({'_id': req.body.userId},function(err, userResult){
-            if(err) {
-                console.log(err);
-            } else {
-                if(userResult) {
-                    userResult.posts.push(postResult._id);
-                    userResult.save();
-                    res.json(userResult);
+    if(post.title || post.content) {
+        post.save(function (err, postResult) {
+            User.findOne({'_id': req.body.userId}, function (err, userResult) {
+                if (err) {
+                    console.log(err);
                 } else {
-                    console.log("Failed to save post.");
-                    res.status(500).json();
+                    if (userResult) {
+                        userResult.posts.push(postResult._id);
+                        userResult.save();
+                        res.json(userResult);
+                    } else {
+                        console.log("Failed to save post.");
+                        res.status(500).json();
+                    }
                 }
-            }
+            });
         });
-    });
+    } else {
+        res.status(500).json('No information in request.')
+    }
 };
 
 module.exports.retrievePostsForUser = function(req, res){
     User.findOne({'_id': req.body.userId}, function(err, userResult){
       if(err){
-          console.log(err)
+          console.log(err);
+          res.status(500).json("Error on finding user." + err);
       } else {
           var postIds = [];
           if(userResult) {
@@ -45,8 +50,7 @@ module.exports.retrievePostsForUser = function(req, res){
                   }
               })
           } else {
-              console.log('Could not find posts.');
-              res.status(500).json();
+              res.status(500).json('Could not find posts for given user.');
           }
       }
     })
@@ -57,7 +61,11 @@ module.exports.retrieveAllPosts = function(req, res){
         if(err){
             console.log(err);
         } else {
-            res.json(postResults);
+            if(postResults.length > 0) {
+                res.json(postResults);
+            } else {
+                res.status(500).json('Could process all posts request.')
+            }
         }
     });
 };
@@ -67,8 +75,11 @@ module.exports.retrievePost = function(req,res){
         if(err){
             console.log(err)
         } else {
-            console.log(postResult);
-            res.json(postResult)
+            if(postResult) {
+                res.json(postResult)
+            } else {
+                res.status(500).json('Could not find post.')
+            }
         }
     });
 };

@@ -8,6 +8,10 @@ var userSchema = mongoose.Schema({
     posts: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: 'post'
+    }],
+    replys: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'reply'
     }]
 });
 

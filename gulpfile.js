@@ -11,8 +11,8 @@ var paths = {
     dependencies: ['node_modules/angular/angular.js',
         'node_modules/restangular/src/restangular.js',
         'node_modules/underscore/underscore.js',
-        'node_modules/angular-mocks/angular-mocks.js']
-
+        'node_modules/angular-mocks/angular-mocks.js',
+        'node_modules/factory-lady/lib/factory-lady.js']
 };
 
 gulp.task('test', function(){
