@@ -1,9 +1,8 @@
 var mongoose = require('mongoose');
 var request = require("request");
 var Post = require('../server/models/post');
+var User = require('../server/models/user');
 var Factory = require('../server/models/modelFactory');
-
-var testPost = null;
 
 describe('Testing the Post Controller', function(){
     beforeEach(function(done){
@@ -15,44 +14,43 @@ describe('Testing the Post Controller', function(){
     });
 
     afterEach(function(done){
-        mongoose.connection.db.dropDatabase(function(){
-            mongoose.connection.close(done)
+        mongoose.connection.db.dropCollection('users', function(err,result){
+            mongoose.connection.db.dropCollection('posts', function(err,result){
+                mongoose.connection.close(done);
+            });
         });
     });
 
     describe('submitPost', function(){
+        it('should save the post successfully', function(done){
+            Factory.build('post',{reply: undefined}, function(post){
+                Factory.create('user', {post: post, reply: undefined}, function(user){
+                    var testParam = {
+                        title: post.title,
+                        content: post.content,
+                        created: post.created,
+                        userId: user.id
+                    };
+                    request.post({url:'http://localhost:3000/submitPost', form: testParam}, function(error, response, body){
+                        Post.find({},function(error,list){
+                            expect(response.statusCode).toBe(200);
+                            expect(list.length).toBe(1);
+                            expect(list[0].title).toBe('Test Title');
+                            expect(list[0].content).toBe('Test Content');
+                            expect(list[0].created.time).toEqual(new Date(10000).time);
+                            expect(list[0].reply.length).toEqual(0);
+                            done();
+                        });
+                    });
+                });
+            });
+        });
+
         it('should response with an error when no post information is provided', function(done){
             request.post('http://localhost:3000/submitPost', function(error, response, body){
                 expect(response.statusCode).toBe(500);
                 expect(response.body).toBe('"No information in request."');
                 done();
-            });
-        });
-
-        it('should save the post successfully', function(){
-            var testPost = null;
-            Factory.create('post',{reply: undefined}, function(post){
-                testPost = post;
-                Factory.create('user', {post: post, reply: undefined}, function(){
-                    var testParams = {
-                        title: testPost.title,
-                        content: testPost.content,
-                        created: testPost.created
-                    };
-
-                    request.post('http://localhost:3000/submitPost', testParams, function(error, response, body){
-                        expect(response.statusCode).toBe(200);
-                    });
-
-                    Post.list({},function(error,list){
-                        expect(list.length).toBe(1);
-                        expect(list[0].title).toBe('Test Title');
-                        expect(list[0].content).toBe('Test Content');
-                        expect(list[0].created).toBe(new Date(10000));
-                        expect(list[0].reply).toBe(undefined);
-                        done();
-                    });
-                })
             });
         });
     });
