@@ -9,17 +9,19 @@ module.exports.submitPost = function(req, res){
     post.content = req.body.content;
     post.created = req.body.created;
     //retrieve the user then save the post to the user object.
-    if(post.title && post.content) {
+    if(post.title && post.content && post.created) {
         post.save(function (err, postResult) {
             User.findOne({'_id': req.body.userId}, function (err, userResult) {
                 if (err) {
-                    console.log(err);
+                    console.log('fail1');
+                    res.status(500).json("Failed to save post.")
                 } else {
                     if (userResult) {
                         userResult.posts.push(postResult._id);
                         userResult.save();
                         res.status(200).json(userResult);
                     } else {
+                        console.log('fail2');
                         res.status(500).json("Failed to save post.");
                     }
                 }
@@ -63,7 +65,7 @@ module.exports.retrieveAllPosts = function(req, res){
             if(postResults.length > 0) {
                 res.json(postResults);
             } else {
-                res.status(500).json('Could process all posts request.')
+                res.status(500).json('Retrieve Posts Failed.')
             }
         }
     });
