@@ -13,16 +13,12 @@ module.exports.submitPost = function(req, res){
         post.save(function (err, postResult) {
             User.findOne({'_id': req.body.userId}, function (err, userResult) {
                 if (err) {
-                    console.log('fail1');
                     res.status(500).json("Failed to save post.")
                 } else {
                     if (userResult) {
                         userResult.posts.push(postResult._id);
                         userResult.save();
                         res.status(200).json(userResult);
-                    } else {
-                        console.log('fail2');
-                        res.status(500).json("Failed to save post.");
                     }
                 }
             });
@@ -35,8 +31,7 @@ module.exports.submitPost = function(req, res){
 module.exports.retrievePostsForUser = function(req, res){
     User.findOne({'_id': req.body.userId}, function(err, userResult){
       if(err){
-          console.log(err);
-          res.status(500).json("Error on finding user." + err);
+          res.status(500).json("Error on finding user.");
       } else {
           var postIds = [];
           if(userResult) {
@@ -45,9 +40,9 @@ module.exports.retrievePostsForUser = function(req, res){
               });
               Post.find({'_id': {$in: postIds}}, function (err, postResults) {
                   if (err) {
-                      console.log(err)
+                      res.status(500).json(err)
                   } else {
-                      res.json(postResults);
+                      res.status(200).json(postResults);
                   }
               })
           } else {

@@ -26,7 +26,7 @@ describe('Testing the Post Controller', function(){
             });
         });
     });
-    describe('submtPost', function(){
+    describe('submitPost', function(){
         it('should save the post successfully', function (done) {
             Factory.build('post', {reply: undefined}, function (post) {
                 Factory.create('user', {post: post, reply: undefined}, function (user) {
@@ -74,12 +74,79 @@ describe('Testing the Post Controller', function(){
         });
     });
 
+    describe('retrievePostsForUser', function(){
+        it('should fail because no user has been created.', function(done){
+            mongoose.connection.db.dropCollection('posts', function(err,result) {
+                request.post('http://localhost:3000/retrievePostsForUser', function (error, response, body) {
+                    expect(response.statusCode).toBe(500);
+                    expect(response.body).toBe('"Could not find posts for given user."');
+                    done();
+                });
+            });
+        });
+
+        it('should fail because no user has been created.', function(done){
+            var params = {
+                userId: 123
+            };
+
+            mongoose.connection.db.dropCollection('posts', function(err,result) {
+                request.post({url:'http://localhost:3000/retrievePostsForUser',form: params}, function (error, response, body) {
+                    expect(response.statusCode).toBe(500);
+                    expect(response.body).toBe('"Error on finding user."');
+                    done();
+                });
+            });
+        });
+
+        it('should retrieve the posts for the user', function(done){
+            Factory.create('post',{reply: undefined},function(post){
+                Factory.create('user', {post: post, reply: undefined}, function(user){
+                    var params = {
+                        userId: user.id
+                    };
+
+                    request.post({url:'http://localhost:3000/retrievePostsForUser',form: params}, function (error, response, body) {
+                        Post.find({}, function (error, list) {
+                            expect(response.statusCode).toBe(200);
+                            expect(list.length).toBe(1);
+                            expect(list[0].title).toBe('Test Title');
+                            expect(list[0].content).toBe('Test Content');
+                            expect(list[0].created.time).toEqual(new Date(10000).time);
+                            expect(list[0].reply.length).toEqual(0);
+                            done();
+                        });
+                    });
+                });
+            });
+        });
+    });
+
     describe('retrieveAllPosts', function(){
-        it('should respond successfully', function(done){
+        it('should fail because there are no posts to retrieve', function(done){
             request.post('http://localhost:3000/retrieveAllPosts', function(error, response, body){
                 expect(response.statusCode).toBe(500);
                 expect(response.body).toBe('"Retrieve Posts Failed."');
                 done();
+            });
+        });
+
+        it('should return all of the posts successfully', function(done){
+            Factory.create('post',{reply: undefined},function(){
+                Factory.create('post',{reply: undefined, title: "Test Title 2"}, function(){
+                    request.post('http://localhost:3000/retrieveAllPosts', function (error, response, body) {
+                        Post.find({}, function (error, list) {
+                            expect(response.statusCode).toBe(200);
+                            expect(list.length).toBe(2);
+                            expect(list[0].title).toBe('Test Title');
+                            expect(list[1].title).toBe('Test Title 2');
+                            expect(list[0].content).toBe('Test Content');
+                            expect(list[0].created.time).toEqual(new Date(10000).time);
+                            expect(list[0].reply.length).toEqual(0);
+                            done();
+                        });
+                    });
+                });
             });
         });
     });
@@ -93,15 +160,22 @@ describe('Testing the Post Controller', function(){
                 done();
             });
         });
-    });
 
-    describe('retrievePostsForUser', function(){
-        it('should respond successfully', function(done){
-            mongoose.connection.db.dropCollection('posts', function(err,result) {
-                request.post('http://localhost:3000/retrievePostsForUser', function (error, response, body) {
-                    expect(response.statusCode).toBe(500);
-                    expect(response.body).toBe('"Could not find posts for given user."');
-                    done();
+        it('should retrieve the post successfully', function(done){
+            Factory.create('post', {reply: undefined}, function(post){
+                var params = {
+                    postId: post.id
+                };
+                request.post({url:'http://localhost:3000/retrievePost', form: params}, function(err, response, body){
+                    Post.find({}, function (error, list) {
+                        expect(response.statusCode).toBe(200);
+                        expect(list.length).toBe(1);
+                        expect(list[0].title).toBe('Test Title');
+                        expect(list[0].content).toBe('Test Content');
+                        expect(list[0].created.time).toEqual(new Date(10000).time);
+                        expect(list[0].reply.length).toEqual(0);
+                        done();
+                    });
                 });
             });
         });
