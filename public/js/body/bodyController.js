@@ -50,7 +50,7 @@
             bodyService.retrieveAllPosts(params).then(function(data){
                 _this.posts = data;
             },function(err){
-                console.log('error retrieving all posts')
+                console.log('error retrieving all posts: ' + err)
             });
         }
     }

@@ -7,4 +7,5 @@
 /spec/npm-debug.log
 /public/stylesheets/css/style.css
 /npm-debug.log
+/jasmineReports
 *.iml

@@ -24,5 +24,4 @@
             return Restangular.all('retrieveAllPosts').post(params)
         }
     }
-
 })();

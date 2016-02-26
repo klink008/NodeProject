@@ -3,15 +3,15 @@ describe("BodyController", function () {
         bodyService,
         $scope,
         $rootScope,
-        cookies,
+        $cookies,
         cookiesSpy;
 
-    function SetUpScope(_$rootScope_,_$controller_, _bodyService_, _$cookies_) {
+    function SetUpScope(_$rootScope_, _$controller_, _bodyService_, _$cookies_) {
         bodyService = _bodyService_;
         $rootScope = _$rootScope_;
-        cookies = _$cookies_;
-        $scope = $rootScope.$new();
+        $cookies = _$cookies_;
 
+        $scope = $rootScope.$new();
         bodyController = _$controller_('bodyController', {
             $scope:$scope
         });
@@ -21,17 +21,26 @@ describe("BodyController", function () {
     beforeEach(inject(SetUpScope));
 
     beforeEach(function(){
-        cookiesSpy = spyOn(cookies, 'get').and.returnValue('userId');
+        cookiesSpy = spyOn($cookies, 'get').and.returnValue('userId');
     });
 
-    describe('initializePosts', function(){
-        it('should call retrieveAllPosts', function(){
-            var retrieveAllPostsSpy = spyOn(bodyController, 'retrieveAllPosts');
+    describe('retrieveAllPosts', function(){
+        it('should call bodyService.retrieveAllPosts and set posts', function(){
+            var retrieveAllPostsSpy = spyOn(bodyService, 'retrieveAllPosts').and.callFake(function(){
+                return{
+                    then: function(callback){return callback('test')}
+                }
+            });
 
-            bodyController.initializePosts();
+            bodyController.retrieveAllPosts();
 
-            expect(retrieveAllPostsSpy).toHaveBeenCalled();
+            var expectedParams = {
+                userId: 'userId'
+            };
 
+            expect(retrieveAllPostsSpy).toHaveBeenCalledWith(expectedParams);
+            expect(cookiesSpy).toHaveBeenCalledWith('userId');
+            expect(bodyController.posts).toBe('test');
         });
     });
 
@@ -88,23 +97,13 @@ describe("BodyController", function () {
         });
     });
 
-    describe('retrieveAllPosts', function(){
-        it('should call bodyService.retrieveAllPosts and set posts', function(){
-            var retrieveAllPostsSpy = spyOn(bodyService, 'retrieveAllPosts').and.callFake(function(){
-                return{
-                    then: function(callback){return callback('test')}
-                }
-            });
+    describe('initializePosts', function(){
+        it('should call retrieveAllPosts', function(){
+            var retrieveAllPostsSpy = spyOn(bodyController, 'retrieveAllPosts');
 
-            bodyController.retrieveAllPosts();
+            bodyController.initializePosts();
 
-            var expectedParams = {
-                userId: 'userId'
-            };
-
-            expect(retrieveAllPostsSpy).toHaveBeenCalledWith(expectedParams);
-            expect(cookiesSpy).toHaveBeenCalledWith('userId');
-            expect(bodyController.posts).toBe('test');
-        })
-    })
+            expect(retrieveAllPostsSpy).toHaveBeenCalled();
+        });
+    });
 });
