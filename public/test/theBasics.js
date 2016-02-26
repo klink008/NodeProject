@@ -30,11 +30,11 @@
 //       });
 //   });
 //
-//    describe('second method', function(){
-//       it('first test of second method',function(){
+//   describe('second method', function(){
+//      it('first test of second method',function(){
 //
-//        });
-//    });
+//       });
+//   });
 //});
 //
 //var _finishCallback = jasmine.Runner.prototype.finishCallback;

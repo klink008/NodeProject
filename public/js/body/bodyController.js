@@ -12,6 +12,17 @@
         this.retrievePostsForUser = retrievePostsForUser;
         this.retrieveAllPosts = retrieveAllPosts;
 
+        function retrieveAllPosts(){
+            var params = {
+                userId: $cookies.get('userId')
+            };
+            bodyService.retrieveAllPosts(params).then(function(data){
+                _this.posts = data;
+            },function(err){
+                console.log('error retrieving all posts: ' + err)
+            });
+        }
+
         function initializePosts(){
             _this.retrieveAllPosts();
         }
@@ -41,17 +52,6 @@
             },function(err){
                 console.log('error retrieving posts')
             })
-        }
-
-        function retrieveAllPosts(){
-            var params = {
-                userId: $cookies.get('userId')
-            };
-            bodyService.retrieveAllPosts(params).then(function(data){
-                _this.posts = data;
-            },function(err){
-                console.log('error retrieving all posts: ' + err)
-            });
         }
     }
 })();

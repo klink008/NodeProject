@@ -1,15 +1,10 @@
 describe("bodyService", function () {
     var bodyService,
-        $rootScope,
-        $scope,
         $httpBackend;
 
-    function SetUpScope(_$rootScope_,_$httpBackend_,_bodyService_) {
+    function SetUpScope(_$httpBackend_,_bodyService_) {
         bodyService = _bodyService_;
-        $rootScope = _$rootScope_;
         $httpBackend = _$httpBackend_;
-
-        $scope = $rootScope.$new();
     }
 
     beforeEach(module("body"));

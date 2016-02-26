@@ -12,16 +12,16 @@
         this.retrievePostsForUser = retrievePostsForUser;
         this.retrieveAllPosts = retrieveAllPosts;
 
+        function retrieveAllPosts(params){
+            return Restangular.all('retrieveAllPosts').post(params)
+        }
+
         function submitPost(params){
             return Restangular.all('submitPost').post(params)
         }
 
         function retrievePostsForUser(params){
             return Restangular.all('retrievePostsForUser').post(params)
-        }
-        
-        function retrieveAllPosts(params){
-            return Restangular.all('retrieveAllPosts').post(params)
         }
     }
 })();
